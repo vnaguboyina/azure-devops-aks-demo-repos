@@ -3,23 +3,27 @@
   # Task-1: Build Docker Image and push to Azure Container Registry ACR
   # Task-2: Copy kube-manifest files to Build Artifact Directory
   # Task-3: Publish build articats to Azure Pipelines
-# Pipeline Hierarchial Flow: Stages -> Stage -> Jobs -> Job -> Steps -> Task1, Task2, Task3
+# Pipeline Hierarchial Flow: Stages -> Stage -> Jobs -> Job -> Steps -> Task1, Task2, Task3  
 
 trigger:
-- main
+- master
 
+# Variables
 variables:
   tag: '$(Build.BuildId)'
 
 stages:
+# Build Stage 
 - stage: Build
   displayName: Build Stage
   jobs:
-  - job: Build Job
+  - job: Build
     displayName: Build Job
-    pool: 
+    pool:
       vmImage: 'ubuntu-latest'
-    steps:
+    steps: 
+
+    # Task-1: Build Docker Image and push to Azure Container Registry ACR
     - task: Docker@2
       inputs:
         containerRegistry: 'manual-azuredevopsacs-svc'
